@@ -2,39 +2,32 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table, Divider } from 'antd';
 import {
-  task_post_error,
-  task_post_end,
+  _GetView,
+  _GetEnterpriseEvaluation,
 } from '../../../config/redux/actions/fetch';
 import CardComponent from '../../../componets/card';
+import { columns } from '../../../JSON';
 import ReactHtmlParser from 'react-html-parser';
 
 class Post extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      post_error: props.Post.post_error,
-      post_end: props.Post.post_end,
-      loading: props.Post.isFetching,
+      View: props.Fetch.getSuccessView,
+      Ev: props.Fetch.getSuccessEv,
+      dataTable: [],
+      loading: props.Fetch.isFetching,
       Proc_Descript: ReactHtmlParser('<b>NO PROCESA</b>'),
-      Error_Descriptions: ReactHtmlParser(
-        'Cantidad total: <b>' + props.Post.post_error.length + '</b>'
-      ),
-      End_Descriptions: ReactHtmlParser(
-        'Cantidad total: <b>' + props.Post.post_end.length + '</b>'
-      ),
+      Error_Descriptions: ReactHtmlParser('Cantidad total: <b>a</b>'),
+      End_Descriptions: ReactHtmlParser('Cantidad total: <b>a</b>'),
     };
   }
 
   async componentDidMount() {
-    await this.props.FetchPostError({
-      key: 'update-posts',
-      state: 'error',
-    });
-
-    await this.props.FetchPostEnd({
-      key: 'update-posts',
-      state: 'end',
-    });
+    await this.props.FetchView({});
+    await this.props.FetchEv({});
+    await this.CreateTableEv(this.state.Ev, this.state.View);
   }
 
   componentWillUnmount() {
@@ -42,7 +35,7 @@ class Post extends Component {
   }
 
   componentWillReceiveProps(prevProps) {
-    this.setState({ loading: prevProps.Post.isFetching });
+    this.setState({ loading: prevProps.Fetch.isFetching });
   }
 
   title = _title => {
@@ -53,93 +46,72 @@ class Post extends Component {
     );
   };
 
+  CreateTableEv(_array, _array1) {
+    let obj = _array.map((e, i) => {
+      let ob = {
+        key: i,
+        Enterprise_Name: e.Enterprise_Name,
+        Contact_Name: e.Contact_Name,
+        Mail: e.Mail,
+        Expert: e.Expert,
+        Surveyed: [],
+      };
+
+      // _array1.forEach(
+      //   (element, index) =>
+      //     Object.keys(element) === e.Enterprise_Name &&
+      //     ob.Surveyed.push(element)
+      // );
+
+      return ob;
+    });
+
+    console.log(obj);
+
+    this.setState({
+      dataTable: obj,
+    });
+  }
+
   render() {
     const {
-      post_error,
       Error_Descriptions,
       End_Descriptions,
       Proc_Descript,
       loading,
+      dataTable,
     } = this.state;
 
-    post_error.map((e, i) => {
-      console.log(e);
-    });
-    const columns = [
-      { title: 'User Bot', dataIndex: 'name', key: 'name' },
-      { title: 'Finalizados', dataIndex: 'age', key: 'age' },
-      { title: 'Errores', dataIndex: 'address', key: 'address' },
-    ];
-    const data = [
-      {
-        key: 1,
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        description:
-          'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.',
-      },
-      {
-        key: 2,
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        description:
-          'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
-      },
-      {
-        key: 3,
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-        description:
-          'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.',
-      },
-    ];
     return (
       <div>
         <div>
-          {this.title("KPI'S a nivel de Influenciadores")}
+          {this.title("KPI'S")}
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {CardComponent('Finalizados', End_Descriptions, '#A6CF41', loading)}
-            {CardComponent('Errores', Error_Descriptions, '#EB6444', loading)}
-            {CardComponent('Procesando', Proc_Descript, 'floralwhite', loading)}
-          </div>
-        </div>
-
-        <div>
-          {this.title("KPI'S a nivel de consulta")}
-          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {CardComponent('Finalizados', End_Descriptions, '#A6CF41', loading)}
-            {CardComponent('Errores', Error_Descriptions, '#EB6444', loading)}
-            {CardComponent('Procesando', Proc_Descript, 'floralwhite', loading)}
+            {CardComponent(
+              'Empresas inscritas',
+              End_Descriptions,
+              '#A6CF41',
+              loading
+            )}
+            {CardComponent(
+              'Empresas sin contestar',
+              Error_Descriptions,
+              '#EB6444',
+              loading
+            )}
+            {CardComponent(
+              'Empresas contestadas',
+              Proc_Descript,
+              'floralwhite',
+              loading
+            )}
           </div>
         </div>
 
         <Divider orientation="left">Errores & Bots</Divider>
 
-        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-          <div style={{ background: 'white', padding: '10px', width: '50%' }}>
-            <Table
-              columns={columns}
-              expandedRowRender={record => (
-                <p style={{ margin: 0 }}>{record.description}</p>
-              )}
-              dataSource={data}
-            />
-          </div>
-
-          <Divider type="vertical" />
-
-          <div style={{ background: 'white', padding: '10px', width: '50%' }}>
-            <Table
-              columns={columns}
-              expandedRowRender={record => (
-                <p style={{ margin: 0 }}>{record.description}</p>
-              )}
-              dataSource={data}
-            />
-          </div>
+        <div style={{ background: 'white', padding: '10px' }}>
+          <Table loading={loading} columns={columns} dataSource={dataTable} />
         </div>
       </div>
     );
@@ -148,13 +120,13 @@ class Post extends Component {
 
 const mapStateToProps = state => {
   // trae lo de redux de reducers y permite usarlo
-  return { Post: state.FetchPost };
+  return { Fetch: state.Fetch };
 };
 
 const mapDispatchToPropsAction = dispatch => ({
   /// acá unicamente es donde uso mi importacion del action para despachar una accion
-  FetchPostError: value => dispatch(task_post_error(value)),
-  FetchPostEnd: value => dispatch(task_post_end(value)),
+  FetchView: value => dispatch(_GetView(value)),
+  FetchEv: value => dispatch(_GetEnterpriseEvaluation(value)),
 });
 
 export default connect(

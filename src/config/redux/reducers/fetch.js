@@ -1,14 +1,13 @@
 import { FETCHING_DATA, DATA_SUCCESS, DATA_FAILURE } from '../contants';
 
 const initialState = {
-  post_terminated: {},
-  post_end: {},
-  post_error: {},
+  getSuccessView: {},
+  getSuccessEv: {},
   isFetching: false,
   error: false,
 };
 
-export const FetchPost = (state = initialState, action) => {
+export const Fetch = (state = initialState, action) => {
   switch (action.type) {
     case FETCHING_DATA:
       return {
@@ -16,17 +15,17 @@ export const FetchPost = (state = initialState, action) => {
         isFetching: true,
         error: false,
       };
-    case DATA_SUCCESS.END:
+    case DATA_SUCCESS.VIEW:
       return {
         ...state,
-        post_end: action.data,
+        getSuccessView: action.data,
         isFetching: false,
         error: false,
       };
-    case DATA_SUCCESS.ERROR:
+    case DATA_SUCCESS.EV:
       return {
         ...state,
-        post_error: action.data,
+        getSuccessEv: action.data,
         isFetching: false,
         error: false,
       };
@@ -34,7 +33,6 @@ export const FetchPost = (state = initialState, action) => {
     case DATA_FAILURE:
       return {
         ...state,
-        data: {},
         isFetching: false,
         error: action.error,
       };

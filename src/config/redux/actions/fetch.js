@@ -1,15 +1,15 @@
-import { Tasks } from '../../../API';
+import { GetView, GetEnterpriseEvaluation } from '../../../API';
 import { DATA_SUCCESS, DATA_FAILURE, FETCHING_DATA } from '../contants';
 
-const getSuccess_End = data => {
+const getSuccessView = data => {
   return {
-    type: DATA_SUCCESS.END,
+    type: DATA_SUCCESS.VIEW,
     data,
   };
 };
-const getSuccess_Error = data => {
+const getSuccessEv = data => {
   return {
-    type: DATA_SUCCESS.ERROR,
+    type: DATA_SUCCESS.EV,
     data,
   };
 };
@@ -20,24 +20,24 @@ const getFailure = error => {
   };
 };
 
-export const task_post_end = data => dispatch => {
+export const _GetView = data => dispatch => {
   dispatch({ type: FETCHING_DATA });
-  Tasks(data)
+  GetView(data)
     .then(response => {
-      response.data.type === 'SUCCESS'
-        ? dispatch(getSuccess_End(response.data.data))
-        : dispatch(getFailure(response.data.message));
+      response.data.success
+        ? dispatch(getSuccessView(response.data.data))
+        : dispatch(getFailure(response.data));
     })
     .catch(err => dispatch(getFailure(err)));
 };
 
-export const task_post_error = data => dispatch => {
+export const _GetEnterpriseEvaluation = data => dispatch => {
   dispatch({ type: FETCHING_DATA });
-  Tasks(data)
+  GetEnterpriseEvaluation(data)
     .then(response => {
-      response.data.type === 'SUCCESS'
-        ? dispatch(getSuccess_Error(response.data.data))
-        : dispatch(getFailure(response.data.message));
+      response.data.success
+        ? dispatch(getSuccessEv(response.data.data))
+        : dispatch(getFailure(response.data));
     })
     .catch(err => dispatch(getFailure(err)));
 };

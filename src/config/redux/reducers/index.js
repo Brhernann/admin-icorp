@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { FetchPost } from './fetch';
+import { Fetch } from './fetch';
 
 export default combineReducers({
-  FetchPost,
+  Fetch,
 });
