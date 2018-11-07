@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-class Audience extends Component {
+class Graphics extends Component {
   render() {
     return (
       <div>
-        <h2>Hola</h2>
+        <h2>Graficos</h2>
       </div>
     );
   }
 }
 
-export default Audience;
+export default Graphics;

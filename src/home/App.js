@@ -29,36 +29,36 @@ class App extends Component {
           >
             <div className="logo" />
             <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-              <Menu.Item key="1">
+             {/*  <Menu.Item key="1">
                 <Link to="/Report">
                   <Icon type="pie-chart" />
                   <span>General report</span>
                 </Link>
-              </Menu.Item>
+              </Menu.Item> */}
 
               <SubMenu
                 key="sub1"
                 title={
                   <span>
                     <Icon type="user" />
-                    <span>Scraping</span>
+                    <span>Reportes</span>
                   </span>
                 }
               >
                 <Menu.Item key="2">
-                  <NavLink to="/Basic"> Basic </NavLink>
+                  <NavLink to="/Encuestado"> Encuestado </NavLink>
                 </Menu.Item>
 
                 <Menu.Item key="3">
-                  <Link to="/Post"> Post </Link>
+                  <Link to="/Informe"> Informe </Link>
                 </Menu.Item>
 
-                <Menu.Item key="4">
+              {/*   <Menu.Item key="4">
                   <Link to="/Stories"> Stories </Link>
-                </Menu.Item>
+                </Menu.Item> */}
 
                 <Menu.Item key="5">
-                  <Link to="/Audience"> Audience </Link>
+                  <Link to="/Graphics"> Graficos </Link>
                 </Menu.Item>
               </SubMenu>
 
@@ -88,7 +88,7 @@ class App extends Component {
               </div>
             </Content>
             <Footer style={{ textAlign: 'center' }}>
-              Haip Developers ©2019 Created by Herhu
+              Jera Developers ©2019 Created by Hernan Humaña
             </Footer>
           </Layout>
         </Layout>

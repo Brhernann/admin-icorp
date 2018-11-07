@@ -9,7 +9,7 @@ import CardComponent from '../../../componets/card';
 import { columns } from '../../../JSON';
 import ReactHtmlParser from 'react-html-parser';
 
-class Post extends Component {
+class Informe extends Component {
   constructor(props) {
     super(props);
 
@@ -108,7 +108,7 @@ class Post extends Component {
           </div>
         </div>
 
-        <Divider orientation="left">Errores & Bots</Divider>
+        <Divider orientation="left">Empresas Inscritas & Encuestados</Divider>
 
         <div style={{ background: 'white', padding: '10px' }}>
           <Table loading={loading} columns={columns} dataSource={dataTable} />
@@ -132,4 +132,4 @@ const mapDispatchToPropsAction = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToPropsAction
-)(Post);
+)(Informe);
