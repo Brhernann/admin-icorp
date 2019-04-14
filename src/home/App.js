@@ -53,13 +53,17 @@ class App extends Component {
                   <Link to="/Informe"> Informe </Link>
                 </Menu.Item>
 
+                <Menu.Item key="4">
+                  <Link to="/Person"> Encuestado Persona </Link>
+                </Menu.Item>
+
               {/*   <Menu.Item key="4">
                   <Link to="/Stories"> Stories </Link>
                 </Menu.Item> */}
 
-                <Menu.Item key="5">
+               {/*  <Menu.Item key="5">
                   <Link to="/Graphics"> Graficos </Link>
-                </Menu.Item>
+                </Menu.Item> */}
               </SubMenu>
 
               <SubMenu
