@@ -46,10 +46,13 @@ class Persona extends Component {
 
   CreateTableEv(_array, _array1) {
     let obj = _array.map((e, i) => {
+      console.log('eeeees',e)
       let ob = {
         key: i,
-        Name: e.Name,
-        Answer: e.Answer,
+        Nombre_Empresa: e.Nombre_Empresa,
+        Nombre_Inscrito: e.Nombre_Inscrito,
+        Respuesta_Libre_ODS: e.Respuesta_Libre_ODS,
+        Respuesta_Libre_Empatia: e.Respuesta_Libre_Empatia,
         Answer_1: e.Answer_1,
         Answer_2: e.Answer_2,
         Answer_3: e.Answer_3,

@@ -2,20 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table, Divider } from 'antd';
 import {
-  _GetView,
-  /* _GetEnterpriseEvaluation, */
+  _GetF2EmpresasView,
 } from '../../../config/redux/actions/fetch';
 import CardComponent from '../../../componets/card';
-import { columns2 } from '../../../JSON';
+import {columns4} from '../../../JSON';
 import ReactHtmlParser from 'react-html-parser';
 
-class Encuestado extends Component {
+class f2Empresas extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       View: props.Fetch.getSuccessView,
-      /* Ev: props.Fetch.getSuccessEv, */
       dataTable: [],
       loading: props.Fetch.isFetching,
       Proc_Descript: ReactHtmlParser('<b>NO PROCESA</b>'),
@@ -26,9 +24,8 @@ class Encuestado extends Component {
 
   async componentDidMount() {
     await this.props.FetchView({});
-   /*  await this.props.FetchEv({}); */
-    await this.CreateTableEv(/* this.state.Ev,  */this.state.View);
-    console.log(this.state.View)
+    await this.CreateTableEv(this.state.View);
+    console.log('la vista',this.state.View)
   }
 
   componentWillUnmount() {
@@ -49,31 +46,12 @@ class Encuestado extends Component {
 
   CreateTableEv(_array, _array1) {
     let obj = _array.map((e, i) => {
-      console.log('asdsadas', e)
+      console.log('eeee',e)
       let ob = {
         key: i,
-        MAIL: e.MAIl,
-        Name: e.Empresa_Seleccionada,
-        Atq2_Answer: e.Respuesta_libre_Empatia_Lider,
-        Answer: e.Respuesta_libre_ODS,
-        Answer_1: e.Answer_1,
-        Answer_2: e.Answer_2,
-        Answer_3: e.Answer_3,
-        Answer_4: e.Answer_4,
-        Answer_5: e.Answer_5,
-        Answer_6: e.Answer_6,
-        Answer_7: e.Answer_7,
-        Answer_8: e.Answer_8,
-        Answer_9: e.Answer_9,
-        Answer_10: e.Answer_10,
-        Answer_11: e.Answer_11,
-        Answer_12: e.Answer_12,
-        Answer_13: e.Answer_13,
-        Answer_14: e.Answer_14,
-        Answer_15: e.Answer_15,
-        Answer_16: e.Answer_16
+        resultado: e.resultado,
+        Empresa_Seleccionada: e.Empresa_seleccionada 
       };
-console.log('aa',e)
       // _array1.forEach(
       //   (element, index) =>
       //     Object.keys(element) === e.Enterprise_Name &&
@@ -101,10 +79,11 @@ console.log('aa',e)
 
     return (
       <div>
-        <Divider orientation="left">Encuestados</Divider>
+
+        <Divider orientation="left">Encuesta de flujo de f2Empresas</Divider>
 
         <div style={{ background: 'white', padding: '10px' }}>
-          <Table loading={loading} columns={columns2} dataSource={dataTable} scroll={{ x: 1500, y: 300 }} />
+          <Table loading={loading} columns={columns4} dataSource={dataTable} scroll={{ x: 300, y: 300 }} />
         </div>
       </div>
     );
@@ -118,11 +97,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToPropsAction = dispatch => ({
   /// acá unicamente es donde uso mi importacion del action para despachar una accion
-  FetchView: value => dispatch(_GetView(value)),
+  FetchView: value => dispatch(_GetF2EmpresasView(value)),
   //FetchEv: value => dispatch(_GetEnterpriseEvaluation(value)),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToPropsAction
-)(Encuestado);
+)(f2Empresas);

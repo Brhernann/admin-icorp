@@ -54,7 +54,15 @@ class App extends Component {
                 </Menu.Item>
 
                 <Menu.Item key="4">
-                  <Link to="/Person"> Encuestado Persona </Link>
+                  <Link to="/Person"> Inscritos flujo persona </Link>
+                </Menu.Item>
+
+                <Menu.Item key="5">
+                  <Link to="/F2Empresa"> Fase 2 Empresas </Link>
+                </Menu.Item>
+
+                <Menu.Item key="6">
+                  <Link to="/F2Persona"> Fase 2 Persona </Link>
                 </Menu.Item>
 
               {/*   <Menu.Item key="4">
