@@ -48,6 +48,7 @@ class Informe extends Component {
 
   CreateTableEv(_array, _array1) {
     let obj = _array.map((e, i) => {
+      console.log('eeee',e)
       let ob = {
         key: i,
         Enterprise_Name: e.Enterprise_Name,
@@ -84,32 +85,7 @@ class Informe extends Component {
 
     return (
       <div>
-        <div>
-          {this.title("KPI'S")}
-          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {CardComponent(
-              'Empresas inscritas',
-              End_Descriptions,
-              '#A6CF41',
-              loading
-            )}
-            {CardComponent(
-              'Empresas sin contestar',
-              Error_Descriptions,
-              '#EB6444',
-              loading
-            )}
-            {CardComponent(
-              'Empresas contestadas',
-              Proc_Descript,
-              'floralwhite',
-              loading
-            )}
-          </div>
-        </div>
-
         <Divider orientation="left">Empresas Inscritas & Encuestados</Divider>
-
         <div style={{ background: 'white', padding: '10px' }}>
           <Table loading={loading} columns={columns} dataSource={dataTable} />
         </div>
