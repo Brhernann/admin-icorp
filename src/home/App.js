@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import './App.scss';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Icon, Breadcrumb } from 'antd';
+import { Layout, Menu, Icon } from 'antd';
 import { Link, NavLink, BrowserRouter } from 'react-router-dom';
 import Routes from '../config/routes';
 
@@ -29,78 +28,45 @@ class App extends Component {
           >
             <div className="logo" />
             <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-             {/*  <Menu.Item key="1">
-                <Link to="/Report">
-                  <Icon type="pie-chart" />
-                  <span>General report</span>
+              <Menu.Item key="1">
+                <Link to="/">
+                  <Icon type="user" />
+                  <span>Alberto Mordoj</span>
                 </Link>
-              </Menu.Item> */}
+              </Menu.Item>
 
               <SubMenu
                 key="sub1"
                 title={
                   <span>
-                    <Icon type="user" />
+                    <Icon type="pie-chart" />
+
                     <span>Reportes</span>
                   </span>
                 }
               >
                 <Menu.Item key="2">
-                  <NavLink to="/Encuestado"> Encuestado </NavLink>
+                  <Link to="/inscritos"> Inscritos </Link>
                 </Menu.Item>
-
                 <Menu.Item key="3">
-                  <Link to="/Informe"> Informe </Link>
+                  <NavLink to="/encuesta/empresa"> Encuesta empresa </NavLink>
                 </Menu.Item>
 
                 <Menu.Item key="4">
-                  <Link to="/Person"> Inscritos flujo persona </Link>
+                  <Link to="/encuesta/persona"> Encuesta personal </Link>
                 </Menu.Item>
-
-                <Menu.Item key="5">
-                  <Link to="/F2Empresa"> Fase 2 Empresas </Link>
-                </Menu.Item>
-
-                <Menu.Item key="6">
-                  <Link to="/F2Persona"> Fase 2 Persona </Link>
-                </Menu.Item>
-
-              {/*   <Menu.Item key="4">
-                  <Link to="/Stories"> Stories </Link>
-                </Menu.Item> */}
-
-               {/*  <Menu.Item key="5">
-                  <Link to="/Graphics"> Graficos </Link>
-                </Menu.Item> */}
-              </SubMenu>
-
-              <SubMenu
-                key="sub2"
-                title={
-                  <span>
-                    <Icon type="team" />
-                    <span>Team</span>
-                  </span>
-                }
-              >
-                <Menu.Item key="6">Team Developer</Menu.Item>
-                <Menu.Item key="7">Team Marketing</Menu.Item>
               </SubMenu>
             </Menu>
           </Sider>
 
           <Layout>
             <Content style={{ margin: '0 16px' }}>
-              <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>User</Breadcrumb.Item>
-                <Breadcrumb.Item>Bill</Breadcrumb.Item>
-              </Breadcrumb>
               <div style={{ minHeight: 620 }}>
                 <Routes />
               </div>
             </Content>
             <Footer style={{ textAlign: 'center' }}>
-              Jera Developers ©2019 Created by Hernan Humaña
+              Developers ©2019 Created by Herhum
             </Footer>
           </Layout>
         </Layout>

@@ -1,15 +1,21 @@
-import { GetView, GetEnterpriseEvaluation,GetPersonView, GetF2Empresas, GetF2Persona} from '../../../API';
+import { GetEnterpriseView, GetInscribed, GetPersonView } from '../../../API';
 import { DATA_SUCCESS, DATA_FAILURE, FETCHING_DATA } from '../contants';
 
-const getSuccessView = data => {
+const getSuccessEnterprise = data => {
   return {
-    type: DATA_SUCCESS.VIEW,
+    type: DATA_SUCCESS.ENTERPRISE,
     data,
   };
 };
-const getSuccessEv = data => {
+const getSuccessPerson = data => {
   return {
-    type: DATA_SUCCESS.EV,
+    type: DATA_SUCCESS.PERSON,
+    data,
+  };
+};
+const getSuccessInscribed = data => {
+  return {
+    type: DATA_SUCCESS.INSCRIBED,
     data,
   };
 };
@@ -20,23 +26,23 @@ const getFailure = error => {
   };
 };
 
-export const _GetView = data => dispatch => {
+export const _GetEnterpriseView = data => dispatch => {
   dispatch({ type: FETCHING_DATA });
-  GetView(data)
+  GetEnterpriseView(data)
     .then(response => {
       response.data.success
-        ? dispatch(getSuccessView(response.data.data))
+        ? dispatch(getSuccessEnterprise(response.data.data))
         : dispatch(getFailure(response.data));
     })
     .catch(err => dispatch(getFailure(err)));
 };
 
-export const _GetEnterpriseEvaluation = data => dispatch => {
+export const _GetInscribed = data => dispatch => {
   dispatch({ type: FETCHING_DATA });
-  GetEnterpriseEvaluation(data)
+  GetInscribed(data)
     .then(response => {
       response.data.success
-        ? dispatch(getSuccessEv(response.data.data))
+        ? dispatch(getSuccessInscribed(response.data.data))
         : dispatch(getFailure(response.data));
     })
     .catch(err => dispatch(getFailure(err)));
@@ -47,29 +53,7 @@ export const _GetPersonView = data => dispatch => {
   GetPersonView(data)
     .then(response => {
       response.data.success
-        ? dispatch(getSuccessView(response.data.data))
-        : dispatch(getFailure(response.data));
-    })
-    .catch(err => dispatch(getFailure(err)));
-};
-
-export const _GetF2EmpresasView = data => dispatch => {
-  dispatch({ type: FETCHING_DATA });
-  GetF2Empresas(data)
-    .then(response => {
-      response.data.success
-        ? dispatch(getSuccessView(response.data.data))
-        : dispatch(getFailure(response.data));
-    })
-    .catch(err => dispatch(getFailure(err)));
-};
-
-export const _GetF2PersonaView = data => dispatch => {
-  dispatch({ type: FETCHING_DATA });
-  GetF2Persona(data)
-    .then(response => {
-      response.data.success
-        ? dispatch(getSuccessView(response.data.data))
+        ? dispatch(getSuccessPerson(response.data.data))
         : dispatch(getFailure(response.data));
     })
     .catch(err => dispatch(getFailure(err)));

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table, Divider, Modal, Button } from 'antd';
-import { _GetPersonView } from '../../../config/redux/actions/fetch';
+import { _GetEnterpriseView } from '../../../config/redux/actions/fetch';
 import CardComponent from '../../../componets/card';
 import ReactHtmlParser from 'react-html-parser';
 import Factorsformodal from '../../../componets/factors';
@@ -11,14 +11,14 @@ const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
-class Persona extends Component {
+class Empresa extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      View: props.Fetch.getSuccessPerson.reverse(),
+      View: props.Fetch.getSuccessEnterprise.reverse(),
       dataTable: [],
-      loading: props.Fetch.isFetching,
+      loading: false,
       kpiDescription: (value = 0) =>
         ReactHtmlParser(`Cantidad total: <b>${value}</b>`),
       visible1: false,
@@ -41,9 +41,9 @@ class Persona extends Component {
     let dataTable = _array.map((e, i) => {
       return {
         key: i,
-        Nombre_Empresa: e.Nombre_Empresa,
-        Nombre_Inscrito: e.Nombre_Inscrito,
-        Mail: e.Correo,
+        Empresa_Seleccionada: e.Empresa_Seleccionada,
+        Empresa_Origen: e.Empresa_Origen,
+        Mail: e.MAIl,
         Evaluation: [
           e.Answer_1,
           e.Answer_2,
@@ -62,7 +62,7 @@ class Persona extends Component {
           e.Answer_15,
           e.Answer_16,
         ],
-        FreeAnswer: [e.Respuesta_Libre_Empatia, e.Respuesta_Libre_ODS],
+        FreeAnswer: [e.Respuesta_libre_Empatia_Lider, e.Respuesta_libre_ODS],
       };
     });
 
@@ -160,14 +160,14 @@ class Persona extends Component {
       {
         title: 'Empresa seleccionada',
         width: 140,
-        dataIndex: 'Nombre_Empresa',
-        key: 'Nombre_Empresa',
+        dataIndex: 'Empresa_Seleccionada',
+        key: 'Empresa_Seleccionada',
       },
       {
-        title: 'Nombre Encuestado',
+        title: 'Empresa Origen',
         width: 100,
-        dataIndex: 'Nombre_Inscrito',
-        key: 'Nombre_Inscrito',
+        dataIndex: 'Empresa_Origen',
+        key: 'Empresa_Origen',
       },
       {
         title: 'Email encuestado',
@@ -220,18 +220,18 @@ class Persona extends Component {
           </div>
         </div>
 
-        <Divider orientation="left">Informe de encuesta personal</Divider>
+        <Divider orientation="left">Informe de encuesta empresa</Divider>
 
         <div style={{ background: 'white', padding: '10px' }}>
           <Table loading={loading} columns={column} dataSource={dataTable} />
-          <ExcelFile element={<Button>Descargar informe</Button>}>
+          <ExcelFile element={<Button>Descagar informe</Button>}>
             <ExcelSheet data={this.state.View} name="Employees">
               <ExcelColumn
                 label="Empresa seleccionada"
-                value="Nombre_Empresa"
+                value="Empresa_Seleccionada"
               />
-              <ExcelColumn label="Nombre Evaluador" value="Nombre_Inscrito" />
-              <ExcelColumn label="Email encuestado" value="Correo" />
+              <ExcelColumn label="Empresa Origen" value="Empresa_Origen" />
+              <ExcelColumn label="Email encuestado" value="MAIl" />
               <ExcelColumn label="F1" value="Answer_1" />
               <ExcelColumn label="F2" value="Answer_2" />
               <ExcelColumn label="F3" value="Answer_3" />
@@ -250,11 +250,11 @@ class Persona extends Component {
               <ExcelColumn label="F16" value="Answer_16" />
               <ExcelColumn
                 label="¿Cómo considera usted que su empresa está gestionando los ODS a nivel interno?"
-                value="Respuesta_Libre_ODS"
+                value="Respuesta_libre_ODS"
               />
               <ExcelColumn
                 label="Indíquenos alguna empresa que opera en Chile, que usted considere lider en materia de empatía."
-                value="Respuesta_Libre_Empatia"
+                value="Respuesta_libre_Empatia_Lider"
               />
             </ExcelSheet>
           </ExcelFile>
@@ -313,10 +313,10 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToPropsAction = dispatch => ({
-  FetchView: value => dispatch(_GetPersonView(value)),
+  FetchView: value => dispatch(_GetEnterpriseView(value)),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToPropsAction
-)(Persona);
+)(Empresa);

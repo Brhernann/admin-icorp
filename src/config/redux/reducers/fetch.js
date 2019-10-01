@@ -1,8 +1,9 @@
 import { FETCHING_DATA, DATA_SUCCESS, DATA_FAILURE } from '../contants';
 
 const initialState = {
-  getSuccessView: {},
-  getSuccessEv: {},
+  getSuccessEnterprise: [],
+  getSuccessPerson: [],
+  getSuccessInscribed: [],
   isFetching: false,
   error: false,
 };
@@ -15,17 +16,24 @@ export const Fetch = (state = initialState, action) => {
         isFetching: true,
         error: false,
       };
-    case DATA_SUCCESS.VIEW:
+    case DATA_SUCCESS.ENTERPRISE:
       return {
         ...state,
-        getSuccessView: action.data,
+        getSuccessEnterprise: action.data,
         isFetching: false,
         error: false,
       };
-    case DATA_SUCCESS.EV:
+    case DATA_SUCCESS.PERSON:
       return {
         ...state,
-        getSuccessEv: action.data,
+        getSuccessPerson: action.data,
+        isFetching: false,
+        error: false,
+      };
+    case DATA_SUCCESS.INSCRIBED:
+      return {
+        ...state,
+        getSuccessInscribed: action.data,
         isFetching: false,
         error: false,
       };
