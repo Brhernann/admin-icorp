@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table, Divider, Button, Modal } from 'antd';
 import { _GetInscribed } from '../../../config/redux/actions/fetch';
+import ReactExport from 'react-export-excel';
+
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 class Informe extends Component {
   constructor(props) {
@@ -105,6 +110,14 @@ class Informe extends Component {
         <Divider orientation="left">Empresas Inscritas & Encuestados</Divider>
         <div style={{ background: 'white', padding: '10px' }}>
           <Table loading={loading} columns={columns} dataSource={dataTable} />
+          <ExcelFile element={<Button>Descargar informe</Button>}>
+            <ExcelSheet data={this.state.Ev} name="Employees">
+              <ExcelColumn label="Nombre contacto" value="Contact_Name" />
+              <ExcelColumn label="Email" value="Mail" />
+              <ExcelColumn label="Nombre empresa" value="Enterprise_Name" />
+              <ExcelColumn label="Experto" value="Expert" />
+            </ExcelSheet>
+          </ExcelFile>
         </div>
         <Modal
           title="Respuesta Libre"
