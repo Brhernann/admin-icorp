@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "antd": "^3.10.2",
-    "async": "^2.6.1",
+    "async": "^3.2.2",
     "axios": "^0.18.0",
     "jwt-simple": "^0.5.5",
     "moment": "^2.22.2",
